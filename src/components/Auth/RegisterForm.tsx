@@ -1,14 +1,21 @@
 "use client";
 
+import { authAtom } from "@/lib/atoms";
 import { registerFormSchema, RegisterFormType } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSetAtom } from "jotai";
 import { LoaderIcon, SendIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "../shadcnui/button";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
 
 const RegisterForm = () => {
+  const setAuth = useSetAtom(authAtom);
+
+  const { push } = useRouter();
+
   const {
     handleSubmit,
     control,
@@ -23,13 +30,12 @@ const RegisterForm = () => {
     mode: "all",
   });
 
-  const registerformHandler = async ({
-    name,
-    email,
-    password,
-  }: RegisterFormType) => {
+  const registerformHandler = async (regData: RegisterFormType) => {
+    setAuth(regData);
+
     await new Promise((r) => setTimeout(r, 1000));
-    console.log(name, email, password);
+
+    push("/");
   };
   return (
     <form
