@@ -1,7 +1,9 @@
 "use client";
 
+import { authAtom } from "@/lib/atoms";
 import { loginFormSchema, LoginFormType } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtomValue } from "jotai";
 import { LoaderIcon, SendIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "../shadcnui/button";
@@ -9,6 +11,7 @@ import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
 
 const LoginForm = () => {
+  const auth = useAtomValue(authAtom);
   const {
     handleSubmit,
     control,
@@ -24,7 +27,21 @@ const LoginForm = () => {
 
   const loginformHandler = async ({ email, password }: LoginFormType) => {
     await new Promise((r) => setTimeout(r, 1000));
-    console.log(email, password);
+
+    if (email === auth.email && password === auth.password) {
+      console.log(`Welcome:${auth.name}`);
+    } else {
+      if (email !== auth.email) {
+        console.log(`Wrong Email`);
+      }
+      if (password !== auth.password) {
+        console.log(`Wrong password`);
+      }
+
+      if (email !== auth.email && password !== auth.password) {
+        console.log(`Wrong Email & Password`);
+      }
+    }
   };
 
   return (
