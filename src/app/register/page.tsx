@@ -1,3 +1,4 @@
+import RegisterForm from "@/components/Auth/RegisterForm";
 import {
   Card,
   CardContent,
@@ -20,7 +21,9 @@ const page = () => {
         <CardHeader>
           <CardTitle className="text-center text-2xl">Register</CardTitle>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          <RegisterForm />
+        </CardContent>
         <CardFooter className="justify-center gap-1.5">
           Allready have an account ? <Link href={"/"}>Login</Link>
         </CardFooter>
