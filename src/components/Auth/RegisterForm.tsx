@@ -7,6 +7,7 @@ import { useSetAtom } from "jotai";
 import { LoaderIcon, SendIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "../shadcnui/button";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
@@ -34,6 +35,8 @@ const RegisterForm = () => {
     setAuth(regData);
 
     await new Promise((r) => setTimeout(r, 1000));
+
+    toast.success(`Your Registration Was Successful !!`);
 
     push("/");
   };

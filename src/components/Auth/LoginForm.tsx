@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtomValue } from "jotai";
 import { LoaderIcon, SendIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "../shadcnui/button";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
@@ -29,17 +30,13 @@ const LoginForm = () => {
     await new Promise((r) => setTimeout(r, 1000));
 
     if (email === auth.email && password === auth.password) {
-      console.log(`Welcome:${auth.name}`);
+      toast.success(`Welcome:${auth.name}`);
     } else {
       if (email !== auth.email) {
-        console.log(`Wrong Email`);
+        toast.error(`Wrong Email`);
       }
       if (password !== auth.password) {
-        console.log(`Wrong password`);
-      }
-
-      if (email !== auth.email && password !== auth.password) {
-        console.log(`Wrong Email & Password`);
+        toast.error(`Wrong password`);
       }
     }
   };
